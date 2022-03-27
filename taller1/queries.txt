@@ -1,0 +1,26 @@
+SELECT count(*)
+FROM pqr
+JOIN departamento
+    ON pqr.pet_cod_depto=departamento.pet_cod_depto
+WHERE departamento.pet_depto='HUILA';
+
+
+SELECT count(*)
+FROM pqr
+JOIN departamento
+    ON pqr.pet_cod_depto=departamento.pet_cod_depto
+JOIN municipio ON pqr.pet_cod_mpio=municipio.pet_cod_mpio
+WHERE departamento.pet_depto='HUILA' AND municipio.pet_mpio='NEIVA';
+
+
+SELECT motivo_especifico.motivo_especifico, count(*)
+FROM pqr
+JOIN motivo_especifico
+    ON pqr.cod_motesp=motivo_especifico.cod_motesp
+WHERE riesgo_vida='SI'
+GROUP BY motivo_especifico.cod_motesp
+ORDER BY count DESC;
+
+
+
+mongoexport --host="localhost" --port=27017 --collection=infoPQR_eps --db=PQR_salud --out="info_eps" --type=csv --fields=_id,mes,pqr_canal,pet_mpio,afec_regafiliacion,ent_nombre,ent_alias_sns,afec_genero
